@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightBluetrans"
+    android:textAlignment="center"
+    tools:context=".SignUpActivity">
+
+    <TableLayout
+        android:id="@+id/big_tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blueVeryLight"
+            android:padding="10dp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@color/lightBlue"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Name:"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#494949"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textAlignment="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blueVeryLight"
+            android:padding="10dp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/surnameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@color/lightBlue"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Surname:"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextSurname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#494949"
+                android:inputType="textPersonName"
+                android:textAlignment="center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blueVeryLight"
+            android:padding="10dp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/numberTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@color/lightBlue"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Phone Number:"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#494949"
+                android:ems="10"
+                android:inputType="textPhonetic"
+                android:textAlignment="center" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blueVeryLight"
+            android:padding="10dp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/adressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:background="@color/lightBlue"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Adres:"
+                android:textAlignment="textEnd"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editTextadress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#494949"
+                android:inputType="textPostalAddress"
+                android:textAlignment="center" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Save"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/big_tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/big_tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/big_tableLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

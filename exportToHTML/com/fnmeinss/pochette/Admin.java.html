@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>Admin.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Admin.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.LinearLayoutManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Admin </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s0">private </span><span class="s1">DatabaseReference mRef</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">RecyclerView rv</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ArrayList&lt;Information&gt; informationArrayList</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Adapter adapter</span><span class="s0">;</span>
+    <span class="s1">Button admin_request_button</span><span class="s0">;</span>
+    <span class="s1">EditText editTextTextMultiLine</span><span class="s0">;</span>
+    <span class="s1">Button dontAcceptDonationButton</span><span class="s0">,</span><span class="s1">acceptDonationButton</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_admin)</span><span class="s0">;</span>
+
+        <span class="s1">rv = findViewById(R.id.rv)</span><span class="s0">;</span>
+        <span class="s1">rv.setHasFixedSize(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">rv.setLayoutManager(</span><span class="s0">new </span><span class="s1">LinearLayoutManager(</span><span class="s0">this</span><span class="s1">))</span><span class="s0">;</span>
+
+        <span class="s1">mRef = FirebaseDatabase.getInstance().getReference(</span><span class="s2">&quot;DonationRequest&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List&lt;Information&gt; informationList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+
+        <span class="s1">mRef.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                <span class="s1">informationList.clear()</span><span class="s0">;</span>
+                <span class="s0">for </span><span class="s1">(DataSnapshot d : snapshot.getChildren()) {</span>
+                    <span class="s1">Information information = d.getValue(Information.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">String adress = (String) information.getAddress()</span><span class="s0">;</span>
+                    <span class="s1">String institution = (String) information.getInstitutionName()</span><span class="s0">;</span>
+                    <span class="s1">String informationn = (String) information.getInfo()</span><span class="s0">;</span>
+                    <span class="s1">Information information1 = </span><span class="s0">new </span><span class="s1">Information(adress</span><span class="s0">, </span><span class="s1">institution</span><span class="s0">, </span><span class="s1">informationn)</span><span class="s0">;</span>
+                    <span class="s1">informationList.add(information1)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s3">//TODO: Furkan madamdır, ve şirketi FN Meinss adam gibi adamdır,ortağı fatma Nur mükemmeldir ve madamdır ayrıca arkadaşı aycan da mükemmel ve madamdır!</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">adapter = </span><span class="s0">new </span><span class="s1">Adapter(</span><span class="s0">this, </span><span class="s1">informationList)</span><span class="s0">;</span>
+        <span class="s1">rv.setAdapter(adapter)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

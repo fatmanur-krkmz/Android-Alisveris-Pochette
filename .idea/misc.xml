@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_ac_unit_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_add_reaction_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_android_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_checkroom_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_indeterminate_check_box_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/drawable/ic_baseline_navigate_before_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_add_product_page.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_admin.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_cart.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_donation.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_donation_request.xml" value="0.33" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_first_login.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_login.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_main_page.xml" value="0.25" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/activity_seller_main_page.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/card_view.xml" value="0.67" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.203125" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/card_view_donation.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/card_view_userprofile.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/card_viewsellermain.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/layout/layout_cart_item.xml" value="0.33" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/menu/bottom_navigation.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/menu/donation_request.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/Desktop/Pochette/app/src/main/res/menu/top_navigationmenu.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_add_product_page.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_admin.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_cart.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_donation.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_donation_request.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_first_login.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_login.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_main.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_main_page.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_password_resett.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_profile.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_seller_main_page.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/activity_sign_up.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/card_view.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/card_view_donation.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/card_view_userprofile.xml" value="0.22" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/card_viewsellermain.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/layout_cart_item.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/PochetteFinalte/Pochette/app/src/main/res/layout/layout_product_item.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_add_product_page.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_cart.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_donation.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_first_login.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_login.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_main.xml" value="0.5126658624849216" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_main_page.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_password_resett.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_profile.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_seller_main_page.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_sign_up.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view.xml" value="0.5" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.3625" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view_donation.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/Furkan/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_viewsellermain.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_add_donation.xml" value="0.21" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_add_product.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_add_product_page.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_admin.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_cart.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_donation.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_donation_request.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_first_login.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_main.xml" value="0.41561181434599154" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_main_page.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_password_resett.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_profile.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_seller_main_page.xml" value="0.1859375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_seller_main_page2.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/card_view_donation.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/card_view_sellermain.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/card_viewsellermain.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/fragment_donation.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/layout/fragment_profile.xml" value="0.11413043478260869" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/bottom_menu.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/bottom_navigation.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/donation_menu.xml" value="0.1703125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/donation_request.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/options_menu.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/optionsmenu_product.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/optionsmenu_seller.xml" value="0.17239583333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Pochette/app/src/main/res/menu/top_navigationmenu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_add_product_page.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_cart.xml" value="0.22" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_donation.xml" value="0.171875" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_first_login.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_login.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_main_page.xml" value="0.33" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/activity_sign_up.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/card_view.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.13958333333333334" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/layout_cart_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/layout/layout_product_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/menu/bottom_navigation.xml" value="0.14010416666666667" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/menu/optionsmenu_admin.xml" value="0.171875" />
+        <entry key="..\:/Users/User/Desktop/Pochette/app/src/main/res/menu/optionsmenu_donationsadmin.xml" value="0.171875" />
+        <entry key="..\:/Users/User/Desktop/Pochette2/app/src/main/res/menu/optionsmenu_product.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/Pochette2/app/src/main/res/layout/activity_admin.xml" value="0.25" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/Pochette2/app/src/main/res/layout/card_view_admin.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/Pochette2/app/src/main/res/menu/optionsmenu_admin.xml" value="0.1875" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/Pochette2/app/src/main/res/menu/optionsmenu_product.xml" value="0.1875" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_admin.xml" value="0.184375" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view_admin.xml" value="0.184375" />
+        <entry key="..\:/Users/User/OneDrive/Fn Meinss Company/pochette yeni/Pochette/app/src/main/res/layout/card_view_userprofile.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

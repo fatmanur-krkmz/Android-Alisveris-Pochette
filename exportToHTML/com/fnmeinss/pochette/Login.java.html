@@ -1,0 +1,226 @@
+<html>
+<head>
+<title>Login.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Login.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnCompleteListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnFailureListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.Task</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.AuthResult</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.SignInMethodQueryResult</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Login </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">private </span><span class="s1">Button buttonGirisYap</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText editTextName</span><span class="s0">,</span><span class="s1">editTextSurname</span><span class="s0">,</span><span class="s1">editTextnumber</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">TextView text_kayitol</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String testmail</span><span class="s0">,</span><span class="s1">key</span><span class="s0">;</span>
+    <span class="s0">private boolean </span><span class="s1">hesapvarmi = </span><span class="s0">false;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_first_login)</span><span class="s0">;</span>
+    <span class="s1">}}</span>
+<span class="s2">//        buttonGirisYap = findViewById(R.id.saveButton);</span>
+<span class="s2">//        editTextEposta = findViewById(R.id.editTextEposta);</span>
+<span class="s2">//        editTextSifre = findViewById(R.id.editTextSifre);</span>
+<span class="s2">//        text_kayitol = findViewById(R.id.text_kayitol);</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//        buttonGirisYap.setOnClickListener(new View.OnClickListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onClick(View view) {</span>
+<span class="s2">//                String eposta = editTextEposta.getText().toString().toLowerCase();</span>
+<span class="s2">//                String sifre = editTextSifre.getText().toString();</span>
+<span class="s2">//                mAuth = FirebaseAuth.getInstance();</span>
+<span class="s2">//                islemsecimi(true,eposta,sifre);</span>
+<span class="s2">//</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//</span>
+<span class="s2">//        text_kayitol.setOnClickListener(new View.OnClickListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onClick(View v) {</span>
+<span class="s2">//                Intent kayitolgecis = new Intent(code_yemekver_giris.this, code_kayitol.class);</span>
+<span class="s2">//                startActivity(kayitolgecis);</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//    private void islemsecimi(final boolean girisYap, final String mail, final String sifre){</span>
+<span class="s2">//</span>
+<span class="s2">//        mAuth.fetchSignInMethodsForEmail(mail).addOnCompleteListener(new OnCompleteListener&lt;SignInMethodQueryResult&gt;() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onComplete(@NonNull Task&lt;SignInMethodQueryResult&gt; task) {</span>
+<span class="s2">//</span>
+<span class="s2">//                if(task.isSuccessful()){</span>
+<span class="s2">//</span>
+<span class="s2">//                    if(task.getResult() != null &amp;&amp; task.getResult().getSignInMethods() != null){</span>
+<span class="s2">//</span>
+<span class="s2">//                        boolean email_var;</span>
+<span class="s2">//</span>
+<span class="s2">//                        if(task.getResult().getSignInMethods().isEmpty()){</span>
+<span class="s2">//</span>
+<span class="s2">//                            //Email bulunamadi</span>
+<span class="s2">//                            Log.e(&quot;hata&quot;,&quot;Email Bulunamadi&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//                            email_var = false;</span>
+<span class="s2">//</span>
+<span class="s2">//                        }else{</span>
+<span class="s2">//</span>
+<span class="s2">//                            Log.e(&quot;hata&quot;,&quot;Email Bulundu&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//                            email_var = true;</span>
+<span class="s2">//</span>
+<span class="s2">//                        }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//                        // İşlemin türüne göre giriş veya üyelik yaptımak</span>
+<span class="s2">//                        if(girisYap){ // Giriş işlemleri için</span>
+<span class="s2">//</span>
+<span class="s2">//                            // Email adresi varsa girişe devam eder</span>
+<span class="s2">//                            if(email_var){</span>
+<span class="s2">//</span>
+<span class="s2">//                                // Mail adresi üyeyse girişe gidilir</span>
+<span class="s2">//                                girisYaptir(mail, sifre);</span>
+<span class="s2">//</span>
+<span class="s2">//                            }else{</span>
+<span class="s2">//</span>
+<span class="s2">//                                Toast.makeText(code_yemekver_giris.this,&quot;Mail Adresi Bulunamadi!&quot;,Toast.LENGTH_SHORT).show();</span>
+<span class="s2">//</span>
+<span class="s2">//                            }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//                        }</span>
+<span class="s2">//</span>
+<span class="s2">//                    }</span>
+<span class="s2">//</span>
+<span class="s2">//                }</span>
+<span class="s2">//</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//        }).addOnFailureListener(new OnFailureListener() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onFailure(@NonNull Exception e) {</span>
+<span class="s2">//</span>
+<span class="s2">//                if(e.getMessage() != null &amp;&amp; e.getMessage().equals(&quot;A network error (such as timeout, interrupted connection or unreachable host) has occurred.&quot;)){</span>
+<span class="s2">//</span>
+<span class="s2">//                    Log.e(&quot;hata&quot;,&quot;Bağlantı sağlanamadı internet bağlantınızı kontrol ediniz!&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//                }</span>
+<span class="s2">//</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//        });</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//    private void girisYaptir(String mail, String sifre){</span>
+<span class="s2">//</span>
+<span class="s2">//        mAuth.signInWithEmailAndPassword(mail, sifre).addOnCompleteListener(new OnCompleteListener&lt;AuthResult&gt;() {</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onComplete(@NonNull Task&lt;AuthResult&gt; task) {</span>
+<span class="s2">//</span>
+<span class="s2">//                if(task.isSuccessful() &amp;&amp; task.getResult() != null){</span>
+<span class="s2">//</span>
+<span class="s2">//                    if(task.getResult().getUser() != null &amp;&amp; task.getResult().getUser().isEmailVerified()){</span>
+<span class="s2">//</span>
+<span class="s2">//                        Toast.makeText(code_yemekver_giris.this,&quot;Giriş Başarılı!&quot;,Toast.LENGTH_LONG).show();</span>
+<span class="s2">//                        girisSonrasiIslemler(mail);</span>
+<span class="s2">//</span>
+<span class="s2">//                    }else{</span>
+<span class="s2">//                        Toast.makeText(code_yemekver_giris.this,&quot;Mail adresinize gelen aktivasyonu kontrol ediniz&quot;,Toast.LENGTH_LONG).show();</span>
+<span class="s2">//                    }</span>
+<span class="s2">//</span>
+<span class="s2">//                }</span>
+<span class="s2">//                else {</span>
+<span class="s2">//                    editTextSifre.setText(&quot;&quot;);</span>
+<span class="s2">//                    Toast.makeText(code_yemekver_giris.this, &quot;Şifre yanlış!&quot;, Toast.LENGTH_LONG).show();</span>
+<span class="s2">//                }</span>
+<span class="s2">//            }</span>
+<span class="s2">//        });</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//    public void girisSonrasiIslemler(String mail){</span>
+<span class="s2">//        FirebaseDatabase database = FirebaseDatabase.getInstance();</span>
+<span class="s2">//        DatabaseReference myRef = database.getReference(&quot;Isletmeler&quot;); //isletmelerin olduğu dataya bağlanır</span>
+<span class="s2">//        myRef.addValueEventListener(new ValueEventListener() {</span>
+<span class="s2">//</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onDataChange(@NonNull DataSnapshot snapshot) {</span>
+<span class="s2">//</span>
+<span class="s2">//                for (DataSnapshot d : snapshot.getChildren()) {</span>
+<span class="s2">//                    isletmeler isletme = d.getValue(isletmeler.class);</span>
+<span class="s2">//                    testmail = isletme.getIsletmemail();</span>
+<span class="s2">//                    Log.e(&quot;s&quot;,&quot;ss&quot;);</span>
+<span class="s2">//</span>
+<span class="s2">//                    if (mail.equals(testmail)) {</span>
+<span class="s2">//                        hesapvarmi = true;</span>
+<span class="s2">//                    }</span>
+<span class="s2">//                }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//            @Override</span>
+<span class="s2">//            public void onCancelled(@NonNull DatabaseError error) {</span>
+<span class="s2">//                Log.e(&quot;error&quot;,&quot;database başlatılamadı&quot;);</span>
+<span class="s2">//            }</span>
+<span class="s2">//</span>
+<span class="s2">//        });</span>
+<span class="s2">//        if (hesapvarmi){</span>
+<span class="s2">//            Log.e(&quot;durum&quot;, &quot;hesap bulundu&quot;);</span>
+<span class="s2">//            Intent yemekbulgecis = new Intent(code_yemekver_giris.this, code_yemekver.class);</span>
+<span class="s2">//            startActivity(yemekbulgecis);</span>
+<span class="s2">//            finish();</span>
+<span class="s2">//        }</span>
+<span class="s2">//        else{</span>
+<span class="s2">//            Log.e(&quot;durum&quot;, &quot;hesap bulunamadı&quot;);</span>
+<span class="s2">//            Intent yemekbulgecis = new Intent(code_yemekver_giris.this, code_yemekver_ilkgiris.class);  //Database'de kullanıcı maili kayıtlı değilse,</span>
+<span class="s2">//            startActivity(yemekbulgecis);                                                                              //bilgilerini ekletmek için ilk giriş sayfasına gidilir</span>
+<span class="s2">//            finish();</span>
+<span class="s2">//        }</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//</span>
+<span class="s2">//}</span></pre>
+</body>
+</html>

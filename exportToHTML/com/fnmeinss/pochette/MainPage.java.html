@@ -1,0 +1,310 @@
+<html>
+<head>
+<title>MainPage.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainPage.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.StaggeredGridLayoutManager</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.bottomnavigation.BottomNavigationView</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Context</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.SharedPreferences</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.Menu</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.MenuItem</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.Query</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.lang.reflect.Array</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Map</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainPage </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DatabaseReference databaseReference</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DatabaseReference databaseReference1</span><span class="s0">;</span>
+    <span class="s1">BottomNavigationView bottomNavigationView</span><span class="s0">;</span>
+    <span class="s1">BottomNavigationView topNavigationView</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">RecyclerView rv</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ArrayList&lt;Product&gt; productArrayList</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ProductAdapter adapter</span><span class="s0">;</span>
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s1">mAuth=FirebaseAuth.getInstance()</span><span class="s0">;</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main_page)</span><span class="s0">;</span>
+
+        <span class="s1">rv=findViewById(R.id.rv)</span><span class="s0">;</span>
+        <span class="s1">rv.setHasFixedSize(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">rv.setLayoutManager(</span><span class="s0">new </span><span class="s1">StaggeredGridLayoutManager(</span><span class="s2">2</span><span class="s0">,</span><span class="s1">StaggeredGridLayoutManager.VERTICAL))</span><span class="s0">;</span>
+
+        <span class="s1">databaseReference= FirebaseDatabase.getInstance().getReference(</span><span class="s3">&quot;product&quot;</span><span class="s1">).child(</span><span class="s3">&quot;toys&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s4">//böyle olduğu için sadece toys geliyo silince hiçbiri gelmiyo</span>
+        <span class="s1">databaseReference1= FirebaseDatabase.getInstance().getReference(</span><span class="s3">&quot;product&quot;</span><span class="s1">).child(</span><span class="s3">&quot;clothes&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List&lt;Product&gt; productArrayList = </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;()</span><span class="s0">;</span>
+        <span class="s1">SharedPreferences sp = getSharedPreferences(</span><span class="s3">&quot;aktifkullanici&quot;</span><span class="s0">, </span><span class="s1">Context.MODE_PRIVATE)</span><span class="s0">;</span><span class="s4">//local saves 01.03</span>
+
+        <span class="s4">//productArrayList=new ArrayList&lt;&gt;();</span>
+        <span class="s4">//productArrayList.add(product);</span>
+        <span class="s4">//CallProductByType();</span>
+
+
+        <span class="s1">databaseReference.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                <span class="s1">productArrayList.clear()</span><span class="s0">;</span>
+
+                <span class="s0">for</span><span class="s1">(DataSnapshot d:snapshot.getChildren()){</span>
+                    <span class="s4">//Product product=new Product();</span>
+
+                    <span class="s1">Product product = d.getValue(Product.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s0">float </span><span class="s1">price = product.getProduct_price()</span><span class="s0">;</span>
+                    <span class="s1">String description=product.getProduct_description2()</span><span class="s0">;</span>
+                    <span class="s1">String url = product.getImageUrl()</span><span class="s0">;</span>
+                    <span class="s1">String seller = product.getSeller()</span><span class="s0">;</span>
+                    <span class="s1">Product product1=</span><span class="s0">new </span><span class="s1">Product(seller</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s0">,</span><span class="s1">url</span><span class="s0">,</span><span class="s1">description</span><span class="s0">,</span><span class="s1">price)</span><span class="s0">;</span>
+                    <span class="s1">Log.e(</span><span class="s3">&quot;Product&quot;</span><span class="s0">,</span><span class="s1">price+description+url)</span><span class="s0">;</span>
+                    <span class="s4">// productArrayList.add(product);</span>
+                    <span class="s1">productArrayList.add(product1)</span><span class="s0">;</span>
+
+                    <span class="s4">/* 
+                    String seller = product.getSeller(); 
+                    SharedPreferences sp = getSharedPreferences(&quot;aktifkullanici&quot;, Context.MODE_PRIVATE); 
+                    String seller2 = sp.getString(&quot;nameandsurname&quot;,&quot;&quot;); 
+                    if(seller.equals(seller2)){ 
+                    Product product1=new Product(seller,&quot;&quot;,url,description,price); 
+                    productArrayList.add(product1); 
+                    } 
+                    */</span>
+                <span class="s1">}</span>
+                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">databaseReference1.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+              <span class="s4">//  productArrayList.clear();</span>
+
+                <span class="s0">for</span><span class="s1">(DataSnapshot d:snapshot.getChildren()){</span>
+                    <span class="s4">//Product product=new Product();</span>
+
+                    <span class="s1">Product product = d.getValue(Product.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s0">float </span><span class="s1">price =product.getProduct_price()</span><span class="s0">;</span>
+                    <span class="s1">String description=product.getProduct_description2()</span><span class="s0">;</span>
+                    <span class="s1">String url = product.getImageUrl()</span><span class="s0">;</span>
+                    <span class="s1">String seller = product.getSeller()</span><span class="s0">;</span>
+                    <span class="s1">Product product1=</span><span class="s0">new </span><span class="s1">Product(seller</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s0">,</span><span class="s1">url</span><span class="s0">,</span><span class="s1">description</span><span class="s0">,</span><span class="s1">price)</span><span class="s0">;</span>
+                    <span class="s1">Log.e(</span><span class="s3">&quot;Product&quot;</span><span class="s0">,</span><span class="s1">price+description+url)</span><span class="s0">;</span>
+                    <span class="s4">// productArrayList.add(product);</span>
+                    <span class="s1">productArrayList.add(product1)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+        <span class="s1">adapter=</span><span class="s0">new </span><span class="s1">ProductAdapter(</span><span class="s0">this,</span><span class="s1">productArrayList)</span><span class="s0">;</span>
+        <span class="s1">rv.setAdapter(adapter)</span><span class="s0">;</span>
+
+
+
+        <span class="s1">bottomNavigationView=findViewById(R.id.bottom_navigation)</span><span class="s0">;</span>
+        <span class="s1">topNavigationView=findViewById(R.id.top_navigation)</span><span class="s0">;</span>
+        <span class="s1">bottomNavigationView.setSelectedItemId(R.id.homeFragment)</span><span class="s0">;</span>
+        <span class="s1">bottomNavigationView.setOnNavigationItemSelectedListener(</span><span class="s0">new </span><span class="s1">BottomNavigationView.OnNavigationItemSelectedListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public boolean </span><span class="s1">onNavigationItemSelected(@NonNull MenuItem item) {</span>
+                <span class="s0">switch </span><span class="s1">(item.getItemId()){</span>
+                    <span class="s0">case </span><span class="s1">R.id.homeFragment:</span>
+                        <span class="s4">/*startActivity(new Intent(getApplicationContext(),MainPage.class)); 
+                        overridePendingTransition(0,0);*/</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.donationFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Donation.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s2">0</span><span class="s0">,</span><span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.cartFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Cart.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s2">0</span><span class="s0">,</span><span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.profileFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Profile.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s2">0</span><span class="s0">,</span><span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">topNavigationView.setSelectedItemId(R.id.all_product)</span><span class="s0">;</span>
+        <span class="s1">topNavigationView.setOnNavigationItemSelectedListener(</span><span class="s0">new </span><span class="s1">BottomNavigationView.OnNavigationItemSelectedListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public boolean </span><span class="s1">onNavigationItemSelected(@NonNull MenuItem item) {</span>
+                <span class="s0">switch </span><span class="s1">(item.getItemId()){</span>
+                    <span class="s0">case </span><span class="s1">R.id.all_product:</span>
+                        <span class="s1">databaseReference1.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                                 <span class="s4">// productArrayList.clear();</span>
+
+                                <span class="s0">for</span><span class="s1">(DataSnapshot d:snapshot.getChildren()){</span>
+                                    <span class="s4">//Product product=new Product();</span>
+
+                                    <span class="s1">Product product = d.getValue(Product.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                    <span class="s0">float </span><span class="s1">price = product.getProduct_price()</span><span class="s0">;</span>
+                                    <span class="s1">String description=product.getProduct_description2()</span><span class="s0">;</span>
+                                    <span class="s1">String url = product.getImageUrl()</span><span class="s0">;</span>
+                                    <span class="s1">String seller = product.getSeller()</span><span class="s0">;</span>
+                                    <span class="s1">Product product1=</span><span class="s0">new </span><span class="s1">Product(seller</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s0">,</span><span class="s1">url</span><span class="s0">,</span><span class="s1">description</span><span class="s0">,</span><span class="s1">price)</span><span class="s0">;</span>
+                                    <span class="s1">Log.e(</span><span class="s3">&quot;Product&quot;</span><span class="s0">,</span><span class="s1">price+description+url)</span><span class="s0">;</span>
+                                    <span class="s4">// productArrayList.add(product);</span>
+                                    <span class="s1">productArrayList.add(product1)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+                            <span class="s1">}</span>
+                        <span class="s1">})</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.clothes:</span>
+                        <span class="s1">databaseReference1.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                                 <span class="s1">productArrayList.clear()</span><span class="s0">;</span>
+
+                                <span class="s0">for</span><span class="s1">(DataSnapshot d:snapshot.getChildren()){</span>
+                                    <span class="s4">//Product product=new Product();</span>
+
+                                    <span class="s1">Product product = d.getValue(Product.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                    <span class="s0">float </span><span class="s1">price = product.getProduct_price()</span><span class="s0">;</span>
+                                    <span class="s1">String description=product.getProduct_description2()</span><span class="s0">;</span>
+                                    <span class="s1">String url = product.getImageUrl()</span><span class="s0">;</span>
+                                    <span class="s1">String seller = product.getSeller()</span><span class="s0">;</span>
+                                    <span class="s1">Product product1=</span><span class="s0">new </span><span class="s1">Product(seller</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s0">,</span><span class="s1">url</span><span class="s0">,</span><span class="s1">description</span><span class="s0">,</span><span class="s1">price)</span><span class="s0">;</span>
+                                    <span class="s1">Log.e(</span><span class="s3">&quot;Product&quot;</span><span class="s0">,</span><span class="s1">price+description+url)</span><span class="s0">;</span>
+                                    <span class="s4">// productArrayList.add(product);</span>
+                                    <span class="s1">productArrayList.add(product1)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+                            <span class="s1">}</span>
+                        <span class="s1">})</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case  </span><span class="s1">R.id.toys:</span>
+                        <span class="s1">databaseReference.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                                 <span class="s1">productArrayList.clear()</span><span class="s0">;</span>
+
+                                <span class="s0">for</span><span class="s1">(DataSnapshot d:snapshot.getChildren()){</span>
+                                    <span class="s4">//Product product=new Product();</span>
+
+                                    <span class="s1">Product product = d.getValue(Product.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                                    <span class="s0">float </span><span class="s1">price = product.getProduct_price()</span><span class="s0">;</span>
+                                    <span class="s1">String description=product.getProduct_description2()</span><span class="s0">;</span>
+                                    <span class="s1">String url = product.getImageUrl()</span><span class="s0">;</span>
+                                    <span class="s1">String seller = product.getSeller()</span><span class="s0">;</span>
+                                    <span class="s1">Product product1=</span><span class="s0">new </span><span class="s1">Product(seller</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s0">,</span><span class="s1">url</span><span class="s0">,</span><span class="s1">description</span><span class="s0">,</span><span class="s1">price)</span><span class="s0">;</span>
+                                    <span class="s1">Log.e(</span><span class="s3">&quot;Product&quot;</span><span class="s0">,</span><span class="s1">price+description+url)</span><span class="s0">;</span>
+                                    <span class="s4">// productArrayList.add(product);</span>
+                                    <span class="s1">productArrayList.add(product1)</span><span class="s0">;</span>
+                                <span class="s1">}</span>
+                                <span class="s1">adapter.notifyDataSetChanged()</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+
+                            <span class="s1">@Override</span>
+                            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+
+                            <span class="s1">}</span>
+                        <span class="s1">})</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.donation_request:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">DonationRequest.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s2">0</span><span class="s0">,</span><span class="s2">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+
+                <span class="s1">}</span>
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">CallProductByType(){</span>
+
+
+
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu) {</span>
+        <span class="s1">getMenuInflater().inflate(R.menu.options_menu</span><span class="s0">,</span><span class="s1">menu)</span><span class="s0">;</span>
+        <span class="s0">return super</span><span class="s1">.onCreateOptionsMenu(menu)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(@NonNull MenuItem item) {</span>
+        <span class="s0">if</span><span class="s1">(item.getItemId()==R.id.seller_page){</span>
+            <span class="s1">Intent sellerpageIntent=</span><span class="s0">new </span><span class="s1">Intent(MainPage.</span><span class="s0">this, </span><span class="s1">SellerMainPage.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">startActivity(sellerpageIntent)</span><span class="s0">;</span>
+            <span class="s1">finish()</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(item.getItemId()==R.id.logout){</span>
+            <span class="s1">mAuth.signOut()</span><span class="s0">;</span>
+            <span class="s1">SharedPreferences sp = getSharedPreferences(</span><span class="s3">&quot;aktifkullanici&quot;</span><span class="s0">, </span><span class="s1">Context.MODE_PRIVATE)</span><span class="s0">;</span><span class="s4">//local saves 01.03</span>
+            <span class="s1">SharedPreferences.Editor editor = sp.edit()</span><span class="s0">;</span>
+            <span class="s1">editor.putString(</span><span class="s3">&quot;nameandsurname&quot;</span><span class="s0">,</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">editor.commit()</span><span class="s0">;</span>
+            <span class="s1">Intent intentToMain=</span><span class="s0">new </span><span class="s1">Intent(MainPage.</span><span class="s0">this,</span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">startActivity(intentToMain)</span><span class="s0">;</span>
+            <span class="s1">finish()</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+        <span class="s0">return super</span><span class="s1">.onOptionsItemSelected(item)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

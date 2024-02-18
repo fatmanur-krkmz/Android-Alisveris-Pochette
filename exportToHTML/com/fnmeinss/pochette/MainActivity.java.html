@@ -1,0 +1,334 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #808080;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Context</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.SharedPreferences</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.WindowManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnCompleteListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnFailureListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.Task</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.AuthResult</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseUser</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.SignInMethodQueryResult</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s0">private </span><span class="s1">TextView textLinkPassword</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">TextView signupTextView</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Button loginButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Button sellerLoginButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText eMailText</span><span class="s0">, </span><span class="s1">passwordText</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String testmail</span><span class="s0">, </span><span class="s1">kayıtlimail</span><span class="s0">, </span><span class="s1">name</span><span class="s0">, </span><span class="s1">surname</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">databaseusedtimes = </span><span class="s2">0</span><span class="s0">;</span>
+    <span class="s0">private boolean </span><span class="s1">isaccountexist = </span><span class="s0">false,</span><span class="s1">signupdangeldi</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">String gelenbuton</span><span class="s0">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s1">getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)</span><span class="s0">;</span><span class="s3">//Tam ekran</span>
+        <span class="s1">textLinkPassword = findViewById(R.id.textLinkPassword)</span><span class="s0">;</span>
+        <span class="s1">signupTextView = findViewById(R.id.signupTextView)</span><span class="s0">;</span>
+        <span class="s1">loginButton = findViewById(R.id.loginButton)</span><span class="s0">;</span>
+        <span class="s1">sellerLoginButton = findViewById(R.id.sellerLoginButton)</span><span class="s0">;</span>
+        <span class="s1">eMailText = findViewById(R.id.eMailText)</span><span class="s0">;</span>
+        <span class="s1">passwordText = findViewById(R.id.passwordText)</span><span class="s0">;</span>
+        <span class="s1">mAuth = FirebaseAuth.getInstance()</span><span class="s0">;</span>
+        <span class="s1">FirebaseDatabase database = FirebaseDatabase.getInstance()</span><span class="s0">;</span>
+        <span class="s1">DatabaseReference myRef = database.getReference(</span><span class="s4">&quot;Person&quot;</span><span class="s1">).child(</span><span class="s4">&quot;Admin&quot;</span><span class="s1">)</span><span class="s0">;</span>
+       <span class="s3">/*     String ID = myRef.push().getKey(); 
+            String eMail=&quot;pochettetemporary@gmail.com&quot;; 
+            String password=&quot;admin&quot;; 
+         myRef.child(ID).child(&quot;userEmail&quot;).setValue(eMail); 
+         myRef.child(ID).child(&quot;password&quot;).setValue(password);*/</span>
+
+
+
+        <span class="s1">signupdangeldi = getIntent().getBooleanExtra(</span><span class="s4">&quot;signupdangeldi&quot;</span><span class="s0">, false</span><span class="s1">)</span><span class="s0">;</span><span class="s3">//yeni</span>
+
+        <span class="s0">if</span><span class="s1">(!signupdangeldi){</span>
+            <span class="s1">FirebaseUser user =mAuth.getCurrentUser()</span><span class="s0">; </span><span class="s3">//bir defa giriş yaptıktan sonra direkt ana sayfaya girer</span>
+            <span class="s0">if</span><span class="s1">(user!=</span><span class="s0">null</span><span class="s1">){</span>
+                <span class="s1">kayıtlimail = user.getEmail()</span><span class="s0">;</span><span class="s3">//yeni</span>
+                <span class="s1">afterLogIn(kayıtlimail)</span><span class="s0">;</span><span class="s3">//yeni</span>
+            <span class="s1">}}</span>
+        <span class="s1">sellerLoginButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+                <span class="s1">String email = eMailText.getText().toString().toLowerCase()</span><span class="s0">;</span>
+                <span class="s1">String password = passwordText.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">signIn(</span><span class="s0">true, </span><span class="s1">email</span><span class="s0">, </span><span class="s1">password)</span><span class="s0">;</span>
+                <span class="s1">gelenbuton=</span><span class="s4">&quot;Seller&quot;</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">loginButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+                <span class="s1">String email = eMailText.getText().toString().toLowerCase()</span><span class="s0">;</span>
+                <span class="s1">String password = passwordText.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">signIn(</span><span class="s0">true, </span><span class="s1">email</span><span class="s0">, </span><span class="s1">password)</span><span class="s0">;</span>
+                <span class="s1">gelenbuton=</span><span class="s4">&quot;Customer&quot;</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+        <span class="s1">textLinkPassword.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">, </span><span class="s1">PasswordResett.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">signupTextView.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">, </span><span class="s1">SignUpActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">signIn(</span><span class="s0">final boolean </span><span class="s1">LogIn</span><span class="s0">, final </span><span class="s1">String mail</span><span class="s0">, final </span><span class="s1">String password) {</span>
+
+        <span class="s1">mAuth.fetchSignInMethodsForEmail(mail).addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;SignInMethodQueryResult&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;SignInMethodQueryResult&gt; task) {</span>
+
+                <span class="s0">if </span><span class="s1">(task.isSuccessful()) {</span>
+
+                    <span class="s0">if </span><span class="s1">(task.getResult() != </span><span class="s0">null </span><span class="s1">&amp;&amp; task.getResult().getSignInMethods() != </span><span class="s0">null</span><span class="s1">) {</span>
+
+                        <span class="s0">boolean </span><span class="s1">email_exist</span><span class="s0">;</span>
+
+                        <span class="s0">if </span><span class="s1">(task.getResult().getSignInMethods().isEmpty()) {</span>
+
+                            <span class="s3">//Email bulunamadi</span>
+                            <span class="s1">Log.e(</span><span class="s4">&quot;Error&quot;</span><span class="s0">, </span><span class="s4">&quot;Email can not found.&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                            <span class="s1">email_exist = </span><span class="s0">false;</span>
+
+                        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+
+                           <span class="s3">// Log.e(&quot;Error&quot;, &quot;Email found.&quot;);</span>
+
+                            <span class="s1">email_exist = </span><span class="s0">true;</span>
+
+                        <span class="s1">}</span>
+
+
+                        <span class="s3">// İşlemin türüne göre giriş veya üyelik yaptımak</span>
+                        <span class="s0">if </span><span class="s1">(LogIn) { </span><span class="s3">// Giriş işlemleri için</span>
+
+                            <span class="s3">// Email adresi varsa girişe devam eder</span>
+                            <span class="s0">if </span><span class="s1">(email_exist) {</span>
+
+                                <span class="s3">// Mail adresi üyeyse girişe gidilir</span>
+                                <span class="s1">logIn(mail</span><span class="s0">, </span><span class="s1">password)</span><span class="s0">;</span>
+
+                            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+
+                                <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s4">&quot;Mail Adress can not be found!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+
+                            <span class="s1">}</span>
+
+
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+
+        <span class="s1">}).addOnFailureListener(</span><span class="s0">new </span><span class="s1">OnFailureListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onFailure(@NonNull Exception e) {</span>
+
+                <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this,</span><span class="s1">e.getLocalizedMessage()</span><span class="s0">,</span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">private void </span><span class="s1">logIn(String mail</span><span class="s0">, </span><span class="s1">String password) {</span>
+
+        <span class="s1">mAuth.signInWithEmailAndPassword(mail</span><span class="s0">, </span><span class="s1">password).addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;AuthResult&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;AuthResult&gt; task) {</span>
+
+                <span class="s0">if </span><span class="s1">(task.isSuccessful() &amp;&amp; task.getResult() != </span><span class="s0">null</span><span class="s1">) {</span>
+                    <span class="s0">if</span><span class="s1">(</span><span class="s4">&quot;pochettetemporary@gmail.com&quot;</span><span class="s1">.equals(eMailText)||</span><span class="s4">&quot;admin&quot;</span><span class="s1">.equals(passwordText)){</span>
+                        <span class="s1">Intent intent=</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this,</span><span class="s1">Admin.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+
+                    <span class="s0">else if </span><span class="s1">(task.getResult().getUser() != </span><span class="s0">null </span><span class="s1">&amp;&amp; task.getResult().getUser().isEmailVerified()) {</span>
+
+                        <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s4">&quot;Login successful!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">afterLogIn(mail)</span><span class="s0">;</span>
+
+                    <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                        <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s4">&quot;Mail adresinize gelen aktivasyonu kontrol ediniz&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+
+                <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                    <span class="s1">passwordText.setText(</span><span class="s4">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">Toast.makeText(MainActivity.</span><span class="s0">this, </span><span class="s4">&quot;Şifre yanlış!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">afterLogIn(String mail) {</span>
+        <span class="s1">FirebaseDatabase database = FirebaseDatabase.getInstance()</span><span class="s0">;</span>
+        <span class="s1">DatabaseReference myRef = database.getReference(</span><span class="s4">&quot;Person&quot;</span><span class="s1">).child(</span><span class="s4">&quot;Users&quot;</span><span class="s1">)</span><span class="s0">; </span><span class="s3">//isletmelerin olduğu dataya bağlanır</span>
+        <span class="s1">myRef.addValueEventListener(</span><span class="s0">new </span><span class="s1">ValueEventListener() {</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onDataChange(@NonNull DataSnapshot snapshot) {</span>
+                <span class="s1">databaseusedtimes++</span><span class="s0">;</span>
+
+                <span class="s0">for </span><span class="s1">(DataSnapshot d : snapshot.getChildren()) {</span>
+                    <span class="s1">Users user = d.getValue(Users.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">testmail = user.getuserEmail()</span><span class="s0">;</span>
+                    <span class="s3">//</span>
+                    <span class="s0">if</span><span class="s1">(mail.equals(</span><span class="s4">&quot;pochettetemporary@gmail.com&quot;</span><span class="s1">)){</span><span class="s3">//olmadı yarın dene</span>
+                        <span class="s1">Intent intent=</span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this,</span><span class="s1">Admin.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">else if </span><span class="s1">(mail.equals(testmail)) {</span>
+                        <span class="s1">name = user.getuserName()</span><span class="s0">;</span>
+                        <span class="s1">surname = user.getuserSurname()</span><span class="s0">;</span>
+                        <span class="s1">isaccountexist = </span><span class="s0">true;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+
+                <span class="s1">isAccountExist()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onCancelled(@NonNull DatabaseError error) {</span>
+                <span class="s1">Log.e(</span><span class="s4">&quot;error&quot;</span><span class="s0">, </span><span class="s4">&quot;database başlatılamadı&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">isAccountExist() {</span>
+        <span class="s0">if </span><span class="s1">(databaseusedtimes &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s0">if </span><span class="s1">(isaccountexist) {</span>
+                <span class="s0">if</span><span class="s1">(</span><span class="s4">&quot;Seller&quot;</span><span class="s1">.equals(gelenbuton)){</span>
+                    <span class="s1">Log.e(</span><span class="s4">&quot;durum&quot;</span><span class="s0">, </span><span class="s4">&quot;hesap bulundu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">SharedPreferences sp = getSharedPreferences(</span><span class="s4">&quot;aktifkullanici&quot;</span><span class="s0">, </span><span class="s1">Context.MODE_PRIVATE)</span><span class="s0">;</span><span class="s3">//local saves 01.03</span>
+                    <span class="s1">SharedPreferences.Editor editor = sp.edit()</span><span class="s0">;</span>
+                    <span class="s1">editor.putString(</span><span class="s4">&quot;nameandsurname&quot;</span><span class="s0">,</span><span class="s1">name+</span><span class="s4">&quot; &quot;</span><span class="s1">+surname)</span><span class="s0">;</span>
+                    <span class="s1">editor.commit()</span><span class="s0">;</span>
+                    <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">SellerMainPage.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                    <span class="s1">finish()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">Log.e(</span><span class="s4">&quot;durum&quot;</span><span class="s0">, </span><span class="s4">&quot;hesap bulundu&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">SharedPreferences sp = getSharedPreferences(</span><span class="s4">&quot;aktifkullanici&quot;</span><span class="s0">, </span><span class="s1">Context.MODE_PRIVATE)</span><span class="s0">;</span><span class="s3">//local saves 01.03</span>
+                <span class="s1">SharedPreferences.Editor editor = sp.edit()</span><span class="s0">;</span>
+                <span class="s1">editor.putString(</span><span class="s4">&quot;nameandsurname&quot;</span><span class="s0">,</span><span class="s1">name+</span><span class="s4">&quot; &quot;</span><span class="s1">+surname)</span><span class="s0">;</span>
+                <span class="s1">editor.commit()</span><span class="s0">;</span>
+                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">MainPage.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                <span class="s1">finish()</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">Log.e(</span><span class="s4">&quot;durum&quot;</span><span class="s0">, </span><span class="s4">&quot;hesap bulunamadı&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(MainActivity.</span><span class="s0">this, </span><span class="s1">FirstLogin.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;  </span><span class="s3">//Database'de kullanıcı maili kayıtlı değilse,</span>
+                <span class="s1">startActivity(intent)</span><span class="s0">;                                                                              </span><span class="s3">//bilgilerini ekletmek için ilk giriş sayfasına gidilir</span>
+                <span class="s1">finish()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span>
+
+<span class="s3">/* 
+*         sifremiUnuttum.setOnClickListener(new View.OnClickListener() { 
+            @Override 
+            public void onClick(View v) { 
+ 
+                if(email.getText().toString().isEmpty()){ 
+ 
+                    Toast.makeText(MainActivity.this,&quot;Bir Mail Adresi Giriniz!&quot;,Toast.LENGTH_SHORT).show(); 
+ 
+                }else{ 
+ 
+                    mAuth.sendPasswordResetEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener&lt;Void&gt;() { 
+                        @Override 
+                        public void onComplete(@NonNull Task&lt;Void&gt; task) { 
+ 
+                            if(task.isSuccessful()){ 
+ 
+                                Toast.makeText(MainActivity.this,&quot;Sıfırlama Maili Gönderildi!&quot;,Toast.LENGTH_SHORT).show(); 
+ 
+                            }else{ 
+ 
+                                Log.e(&quot;hata&quot;,task.getException().toString()); 
+ 
+                            } 
+ 
+                        } 
+                    }); 
+ 
+                } 
+ 
+            } 
+        }); 
+* */</span>
+</pre>
+</body>
+</html>

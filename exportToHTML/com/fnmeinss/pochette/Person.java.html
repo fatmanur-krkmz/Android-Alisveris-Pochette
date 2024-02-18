@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>Person.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Person.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnCompleteListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.OnFailureListener</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.tasks.Task</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.AuthResult</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.SignInMethodQueryResult</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Person </span><span class="s0">extends </span><span class="s1">MainActivity{</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">Button signupButton</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText editTextMail</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText editTextPassword</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText editTextPasswordAgain</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">EditText editTextName</span><span class="s0">,</span><span class="s1">editTextUsername</span><span class="s0">,</span><span class="s1">editTextSurname</span><span class="s0">,</span><span class="s1">editTextNumber</span><span class="s0">;</span>
+
+
+    <span class="s0">public void </span><span class="s1">signUp(){</span>
+        <span class="s1">signupButton.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+
+                <span class="s1">String mailAdress = editTextMail.getText().toString().toLowerCase()</span><span class="s0">;</span>
+                <span class="s1">String password = editTextPassword.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">String passwordAgain = editTextPasswordAgain.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">String name=editTextName.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">String surname=editTextSurname.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">String username=editTextSurname.getText().toString()</span><span class="s0">;</span>
+                <span class="s1">String number=editTextNumber.getText().toString()</span><span class="s0">;</span>
+
+
+
+                <span class="s0">if </span><span class="s1">(password.equals(passwordAgain)) {</span>
+                    <span class="s1">islemsecimi(name</span><span class="s0">,</span><span class="s1">surname</span><span class="s0">,</span><span class="s1">number</span><span class="s0">,false,</span><span class="s1">mailAdress</span><span class="s0">,</span><span class="s1">password)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+                <span class="s0">else</span>
+                    <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s2">&quot;Passwords are different&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT).show()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">signUp(View view) {</span>
+        <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">,</span><span class="s2">&quot;Done!&quot;</span><span class="s0">,</span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">islemsecimi(</span><span class="s0">final </span><span class="s1">String name</span><span class="s0">,final </span><span class="s1">String surname</span><span class="s0">,final </span><span class="s1">String number</span><span class="s0">,final boolean </span><span class="s1">signUpp</span><span class="s0">, final </span><span class="s1">String mail</span><span class="s0">, final </span><span class="s1">String password){</span>
+        <span class="s1">mAuth = FirebaseAuth.getInstance()</span><span class="s0">;</span>
+        <span class="s1">mAuth.fetchSignInMethodsForEmail(mail).addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;SignInMethodQueryResult&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;SignInMethodQueryResult&gt; task) {</span>
+
+
+                <span class="s0">if</span><span class="s1">(task.isSuccessful()){</span>
+
+                    <span class="s0">if</span><span class="s1">(task.getResult() != </span><span class="s0">null </span><span class="s1">&amp;&amp; task.getResult().getSignInMethods() != </span><span class="s0">null</span><span class="s1">){</span>
+
+                        <span class="s0">boolean </span><span class="s1">email_exist</span><span class="s0">;</span>
+
+                        <span class="s0">if</span><span class="s1">(task.getResult().getSignInMethods().isEmpty()){</span>
+
+                            <span class="s3">//Email bulunamadi</span>
+                            <span class="s1">Log.e(</span><span class="s2">&quot;Error&quot;</span><span class="s0">,</span><span class="s2">&quot;Email can not be found!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                            <span class="s1">email_exist = </span><span class="s0">false;</span>
+
+                        <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+
+                            <span class="s1">Log.e(</span><span class="s2">&quot;Error&quot;</span><span class="s0">,</span><span class="s2">&quot;Email found.&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                            <span class="s1">email_exist = </span><span class="s0">true;</span>
+
+                        <span class="s1">}</span>
+                         <span class="s1">SignUpActivity sg=</span><span class="s0">new </span><span class="s1">SignUpActivity()</span><span class="s0">;</span>
+
+                        <span class="s3">// İşlemin türüne göre giriş veya üyelik yaptımak</span>
+                        <span class="s0">if</span><span class="s1">(!signUpp){ </span><span class="s3">// Giriş işlemleri için</span>
+
+                            <span class="s0">if</span><span class="s1">(email_exist){</span>
+                                <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">,</span><span class="s2">&quot;Bu Maile Kayıtlı Bir Üyelik Zaten Bulunmakta!&quot;</span><span class="s0">,</span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+
+                            <span class="s1">}</span><span class="s0">else</span><span class="s1">{</span>
+                                <span class="s3">// Email adresi yoksa üyeliğe devam eder</span>
+                                <span class="s1">doMembership(name</span><span class="s0">,</span><span class="s1">surname</span><span class="s0">,</span><span class="s1">number</span><span class="s0">,</span><span class="s1">mail</span><span class="s0">, </span><span class="s1">password)</span><span class="s0">;</span>
+
+                            <span class="s1">}</span>
+
+                        <span class="s1">}</span>
+
+                    <span class="s1">}</span>
+
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+
+        <span class="s1">}).addOnFailureListener(</span><span class="s0">new </span><span class="s1">OnFailureListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onFailure(@NonNull Exception e) {</span>
+
+                <span class="s0">if</span><span class="s1">(e.getMessage() != </span><span class="s0">null </span><span class="s1">&amp;&amp; e.getMessage().equals(</span><span class="s2">&quot;A network error (such as timeout, interrupted connection or unreachable host) has occurred.&quot;</span><span class="s1">)){</span>
+
+                    <span class="s1">Log.e(</span><span class="s2">&quot;Error&quot;</span><span class="s0">,</span><span class="s2">&quot;Connection failed, check your internet connection!&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">doMembership(String name</span><span class="s0">,</span><span class="s1">String surname</span><span class="s0">,</span><span class="s1">String number</span><span class="s0">,</span><span class="s1">String mail</span><span class="s0">, </span><span class="s1">String password) {</span>
+
+        <span class="s1">mAuth.createUserWithEmailAndPassword(mail</span><span class="s0">, </span><span class="s1">password).addOnCompleteListener(</span><span class="s0">new </span><span class="s1">OnCompleteListener&lt;AuthResult&gt;() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onComplete(@NonNull Task&lt;AuthResult&gt; task) {</span>
+
+                <span class="s0">if </span><span class="s1">(task.isSuccessful() &amp;&amp; task.getResult() != </span><span class="s0">null</span><span class="s1">) {</span>
+
+                    <span class="s3">// Aktivasyon linki yollama</span>
+                    <span class="s0">if </span><span class="s1">(task.getResult().getUser() != </span><span class="s0">null</span><span class="s1">)</span>
+                        <span class="s1">task.getResult().getUser().sendEmailVerification()</span><span class="s0">;</span>
+
+                    <span class="s1">Toast.makeText(Person.</span><span class="s0">this, </span><span class="s2">&quot;Done! You are one of us now!&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+
+                    <span class="s1">afterLogin()</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+
+
+    <span class="s0">public void </span><span class="s1">afterLogin() {</span>
+        <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(Person.</span><span class="s0">this,</span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+        <span class="s1">finish()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s1">}</span>
+
+
+
+
+</pre>
+</body>
+</html>

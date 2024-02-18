@@ -1,0 +1,152 @@
+<html>
+<head>
+<title>Donation.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Donation.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.fnmeinss.pochette</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.annotation.NonNull</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.RecyclerView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.recyclerview.widget.StaggeredGridLayoutManager</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Context</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.SharedPreferences</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.Log</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.Menu</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.MenuItem</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.bottomnavigation.BottomNavigationView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.auth.FirebaseAuth</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DataSnapshot</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseError</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.DatabaseReference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.FirebaseDatabase</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.firebase.database.ValueEventListener</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Donation </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+    <span class="s1">BottomNavigationView bottomNavigationView</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">FirebaseAuth mAuth</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DatabaseReference reference</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">RecyclerView rvDonation</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">ArrayList&lt;Product&gt; productArrayList</span><span class="s0">;</span>
+    <span class="s0">private </span><span class="s1">DonationAdapter adapter</span><span class="s0">;</span>
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_donation)</span><span class="s0">;</span>
+        <span class="s1">mAuth=FirebaseAuth.getInstance()</span><span class="s0">;</span>
+        <span class="s1">reference=FirebaseDatabase.getInstance().getReference()</span><span class="s0">;</span>
+       <span class="s2">/* rvDonation =findViewById(R.id.rvDonation); 
+        rvDonation.setHasFixedSize(true); 
+        rvDonation.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)); 
+ 
+        reference= FirebaseDatabase.getInstance().getReference(&quot;Donations&quot;); 
+        SharedPreferences sp = getSharedPreferences(&quot;aktifkullanici&quot;, Context.MODE_PRIVATE); 
+ 
+        reference.addValueEventListener(new ValueEventListener() { 
+            @Override 
+            public void onDataChange(@NonNull DataSnapshot snapshot) { 
+                productArrayList.clear(); 
+ 
+                for(DataSnapshot d:snapshot.getChildren()){ 
+                    //Product product=new Product(); 
+ 
+                    Product product = d.getValue(Product.class); 
+                    String description=product.getProduct_description2(); 
+                    String url = product.getImageUrl(); 
+                    Product product2=new Product(url,description); 
+                    Log.e(&quot;Product&quot;,description+url); 
+                    // productArrayList.add(product); 
+                    productArrayList.add(product2); 
+ 
+                    /* 
+                    String seller = product.getSeller(); 
+                    SharedPreferences sp = getSharedPreferences(&quot;aktifkullanici&quot;, Context.MODE_PRIVATE); 
+                    String seller2 = sp.getString(&quot;nameandsurname&quot;,&quot;&quot;); 
+                    if(seller.equals(seller2)){ 
+                    Product product1=new Product(seller,&quot;&quot;,url,description,price); 
+                    productArrayList.add(product1); 
+                    } 
+                    */</span>
+               <span class="s2">/* } 
+                adapter.notifyDataSetChanged(); 
+            } 
+ 
+            @Override 
+            public void onCancelled(@NonNull DatabaseError error) { 
+ 
+            } 
+        });*/</span>
+
+        <span class="s1">bottomNavigationView=findViewById(R.id.bottom_navigation)</span><span class="s0">;</span>
+        <span class="s1">bottomNavigationView.setSelectedItemId(R.id.donationFragment)</span><span class="s0">;</span>
+        <span class="s1">bottomNavigationView.setOnNavigationItemSelectedListener(</span><span class="s0">new </span><span class="s1">BottomNavigationView.OnNavigationItemSelectedListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public boolean </span><span class="s1">onNavigationItemSelected(@NonNull MenuItem item) {</span>
+                <span class="s0">switch </span><span class="s1">(item.getItemId()){</span>
+                    <span class="s0">case </span><span class="s1">R.id.homeFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">MainPage.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s3">0</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.donationFragment:</span>
+
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.cartFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Cart.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s3">0</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                    <span class="s0">case </span><span class="s1">R.id.profileFragment:</span>
+                        <span class="s1">startActivity(</span><span class="s0">new </span><span class="s1">Intent(getApplicationContext()</span><span class="s0">,</span><span class="s1">Profile.</span><span class="s0">class</span><span class="s1">))</span><span class="s0">;</span>
+                        <span class="s1">overridePendingTransition(</span><span class="s3">0</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s0">return true;</span>
+                <span class="s1">}</span>
+
+                <span class="s0">return false;</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu) {</span>
+        <span class="s1">getMenuInflater().inflate(R.menu.donation_menu</span><span class="s0">,</span><span class="s1">menu)</span><span class="s0">;</span>
+        <span class="s0">return super</span><span class="s1">.onCreateOptionsMenu(menu)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(@NonNull MenuItem item) {</span>
+        <span class="s0">if</span><span class="s1">(item.getItemId()==R.id.add_donation){</span>
+            <span class="s1">Intent intent=</span><span class="s0">new </span><span class="s1">Intent(Donation.</span><span class="s0">this, </span><span class="s1">AddDonation.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+            <span class="s1">finish()</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else if</span><span class="s1">(item.getItemId()==R.id.logout){</span>
+            <span class="s1">mAuth.signOut()</span><span class="s0">;</span>
+            <span class="s1">SharedPreferences sp = getSharedPreferences(</span><span class="s4">&quot;aktifkullanici&quot;</span><span class="s0">, </span><span class="s1">Context.MODE_PRIVATE)</span><span class="s0">;</span><span class="s2">//local saves 01.03</span>
+            <span class="s1">SharedPreferences.Editor editor = sp.edit()</span><span class="s0">;</span>
+            <span class="s1">editor.putString(</span><span class="s4">&quot;nameandsurname&quot;</span><span class="s0">,</span><span class="s4">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">editor.commit()</span><span class="s0">;</span>
+            <span class="s1">Intent intentToMain=</span><span class="s0">new </span><span class="s1">Intent(Donation.</span><span class="s0">this,</span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">startActivity(intentToMain)</span><span class="s0">;</span>
+            <span class="s1">finish()</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+        <span class="s0">return super</span><span class="s1">.onOptionsItemSelected(item)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

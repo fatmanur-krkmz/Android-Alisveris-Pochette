@@ -1,0 +1,184 @@
+<html>
+<head>
+<title>Product.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Product.java</font>
+</center></td></tr></table>
+<pre>
+
+<span class="s1">package </span><span class="s0">com.fnmeinss.pochette</span><span class="s1">;</span>
+
+<span class="s1">public class </span><span class="s0">Product {</span>
+
+
+    <span class="s1">public </span><span class="s0">Product() {</span>
+    <span class="s0">}</span>
+    <span class="s1">public </span><span class="s0">Product(</span>
+                   <span class="s0">String imageUrl</span><span class="s1">,</span>
+                   <span class="s0">String product_description2){</span>
+        <span class="s1">this</span><span class="s0">.imageUrl = imageUrl</span><span class="s1">;</span>
+        <span class="s1">this</span><span class="s0">.product_description2 = product_description2</span><span class="s1">;</span>
+
+    <span class="s0">}</span>
+
+    <span class="s1">public </span><span class="s0">Product(</span>
+            <span class="s0">String seller</span><span class="s1">,</span>
+            <span class="s0">String productType</span><span class="s1">,</span>
+            <span class="s0">String imageUrl</span><span class="s1">,</span>
+            <span class="s0">String product_description2</span><span class="s1">,</span>
+            <span class="s1">float </span><span class="s0">product_price)</span>
+    <span class="s0">{</span>
+        <span class="s1">this</span><span class="s0">.seller = seller</span><span class="s1">;</span>
+        <span class="s1">this</span><span class="s0">.imageUrl = imageUrl</span><span class="s1">;</span>
+        <span class="s1">this</span><span class="s0">.productType = productType</span><span class="s1">;</span>
+        <span class="s1">this</span><span class="s0">.product_description2 = product_description2</span><span class="s1">;</span>
+        <span class="s1">this</span><span class="s0">.product_price=product_price</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public </span><span class="s0">String getImageUrl() {</span>
+        <span class="s1">return </span><span class="s0">imageUrl</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public void </span><span class="s0">setImageUrl(String imageUrl) {</span>
+        <span class="s1">this</span><span class="s0">.imageUrl = imageUrl</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public </span><span class="s0">String getProductType() {</span>
+        <span class="s1">return </span><span class="s0">productType</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public void </span><span class="s0">setProductType(String productType) {</span>
+        <span class="s1">this</span><span class="s0">.productType = productType</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public </span><span class="s0">String getProduct_description2() {</span>
+        <span class="s1">return </span><span class="s0">product_description2</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public void </span><span class="s0">setProduct_description2(String product_description2) {</span>
+        <span class="s1">this</span><span class="s0">.product_description2 = product_description2</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+
+    <span class="s1">public float </span><span class="s0">getProduct_price() {</span>
+        <span class="s1">return </span><span class="s0">product_price</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public void </span><span class="s0">setProduct_price(</span><span class="s1">float </span><span class="s0">product_price) {</span>
+        <span class="s1">this</span><span class="s0">.product_price = product_price</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public </span><span class="s0">String getSeller() {</span>
+        <span class="s1">return </span><span class="s0">seller</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+    <span class="s1">public void </span><span class="s0">setSeller(String seller) {</span>
+        <span class="s1">this</span><span class="s0">.seller = seller</span><span class="s1">;</span>
+    <span class="s0">}</span>
+
+<span class="s2">//    public void addProduct(String type, float price, String description,String imageUrl){</span>
+<span class="s2">//        String productID= AddProductPage.db.push().getKey();</span>
+<span class="s2">//        Product xx = new Product(type,imageUrl,description,price);</span>
+<span class="s2">//        AddProductPage.db.child(type).child(productID).setValue(xx);</span>
+<span class="s2">//</span>
+<span class="s2">//    }</span>
+
+    <span class="s1">private </span><span class="s0">String imageUrl</span><span class="s1">;</span>
+    <span class="s1">private </span><span class="s0">String productType</span><span class="s1">;</span>
+    <span class="s1">private </span><span class="s0">String product_description2</span><span class="s1">;</span>
+    <span class="s1">private float </span><span class="s0">product_price</span><span class="s1">;</span>
+    <span class="s1">private </span><span class="s0">String seller</span><span class="s1">;</span>
+
+<span class="s0">}</span>
+
+<span class="s2">/*package com.fnmeinss.pochette; 
+ 
+public class Product { 
+    private String imageUrl; 
+    private String productType; 
+   // private int product_id; 
+    private String product_description2; 
+    private String product_price; 
+   // private String product_imageName; 
+ 
+    public Product() { 
+    } 
+   public Product(String imageUrl, String product_description2,String product_price) { 
+        this.imageUrl = imageUrl; 
+        this.product_description2 = product_description2; 
+        this.product_price=product_price; 
+    } 
+    public Product(String imageUrl,String productType, String product_description2, String product_price) { 
+        this.imageUrl = imageUrl; 
+        this.productType = productType; 
+       // this.product_id = product_id; 
+        this.product_description2 = product_description2; 
+        this.product_price = product_price; 
+    } 
+    public String getImageUrl() { 
+        return imageUrl; 
+    } 
+ 
+    public void setImageUrl(String imageUrl) { 
+        this.imageUrl = imageUrl; 
+    } 
+    public void addProduct(String type, String price, String description,String imageUrl){ 
+        String productID= AddProductPage.db.push().getKey(); 
+        Product xx = new Product(imageUrl,type,description,price); 
+        AddProductPage.db.child(type).child(productID).setValue(xx); 
+ 
+    } 
+ 
+    public String getProductType() { 
+        return productType; 
+    } 
+ 
+    public void setProductType(String productType) { 
+        this.productType = productType; 
+    } 
+ 
+   /* public int getProduct_id() { 
+        return product_id; 
+    } 
+ 
+    public void setProduct_id(int product_id) { 
+        this.product_id = product_id; 
+    } 
+ 
+    public String getProduct_description2() { 
+        return product_description2; 
+    } 
+ 
+    public void setProduct_description2(String product_description2) { 
+        this.product_description2 = product_description2; 
+    } 
+ 
+    public String getProduct_price() { 
+        return product_price; 
+    } 
+ 
+    public void setProduct_price(String product_price) { 
+        this.product_price = product_price; 
+    } 
+ 
+   /* public String getProduct_imageName() { 
+        return product_imageName; 
+    } 
+ 
+    public void setProduct_imageName(String product_imageName) { 
+        this.product_imageName = product_imageName; 
+    } 
+}*/</span>
+</pre>
+</body>
+</html>

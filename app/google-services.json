@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882325455583",
+    "project_id": "pochette-1e25b",
+    "storage_bucket": "pochette-1e25b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882325455583:android:1df583d1bfc2277fed1f6a",
+        "android_client_info": {
+          "package_name": "com.fnmeinss.pochette"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882325455583-94ftepj9gikare948hcdpvvjlk4spd6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQPEB8eDPKvmMd371so3pGBxJPQ59aS18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882325455583-94ftepj9gikare948hcdpvvjlk4spd6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
